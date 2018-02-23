@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="819.0" style="-fx-border-color: black; -fx-border-width: 2;" styleClass="vBoxWelcomeBannerTheme" stylesheets="@../css/application_style.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx_controller.WelcomeBannerController">
+    <HBox alignment="TOP_RIGHT" prefHeight="65.0" prefWidth="815.0" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+        <ImageView fitHeight="83.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+            <HBox.margin>
+                <Insets right="75.0" top="15.0" />
+            </HBox.margin>
+            <Image url="@../image/logo.png" />
+        </ImageView>
+    </HBox>
+   <Label prefHeight="19.0" style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );" text="Program do opracowywania wyników testów wyboru" textFill="WHITE">
+      <font>
+         <Font name="System Bold" size="20.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="10.0" left="10.0" />
+      </VBox.margin>
+   </Label>
+   <HBox alignment="BOTTOM_CENTER" prefHeight="0.0" prefWidth="815.0">
+      <VBox.margin>
+         <Insets bottom="10.0"/>
+      </VBox.margin>
+      <ProgressBar fx:id="progressBarAppLoading" maxWidth="1.7976931348623157E308" prefHeight="18.0" prefWidth="458.0"
+                   progress="0.0" style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                   HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets left="10.0" right="10.0"/>
+         </HBox.margin>
+      </ProgressBar>
+   </HBox>
+   <HBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="815.0">
+      <ImageView fitHeight="83.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true"
+                 style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0"/>
+         </HBox.margin>
+         <Image url="@../image/pwr_logo.png"/>
+      </ImageView>
+      <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+      <VBox alignment="BOTTOM_RIGHT" prefHeight="67.0" prefWidth="241.0">
+         <padding>
+            <Insets bottom="10.0" right="10.0"/>
+         </padding>
+         <Label prefHeight="19.0" text="Wykonał:" textFill="#7c7a7a">
+            <font>
+               <Font size="13.0"/>
+            </font>
+         </Label>
+         <Label alignment="CENTER_RIGHT" prefHeight="19.0" text="Kamil Cieślik" textFill="#7c7a7a">
+            <font>
+               <Font size="13.0"/>
+            </font>
+         </Label>
+      </VBox>
+   </HBox>
+</VBox>
