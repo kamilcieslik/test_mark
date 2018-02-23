@@ -1,6 +1,9 @@
 # Idea files
 .idea/
 
+# Files storing information about a development module
+*.iml
+
 # Compiled class file
 *.class
 
