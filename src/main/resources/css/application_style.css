@@ -1,3 +1,11 @@
-.vBoxWelcomeBannerTheme {
+.welcomeBannerThemeContainer {
     -fx-background-image: url("../image/welcome_banner_theme.png");
+}
+
+.progressBarAppLoading {
+    -fx-accent: #197a09;
+}
+
+.mainSceneThemeContainer {
+    -fx-background-image: url("../image/main_scene_theme.png");
 }

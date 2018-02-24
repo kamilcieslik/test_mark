@@ -1,7 +1,6 @@
 package app;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,6 +16,10 @@ import java.util.logging.Logger;
 
 public class Main extends Application {
     private static Stage mainStage;
+
+    public static void setMainStage(Stage mainStage) {
+        Main.mainStage = mainStage;
+    }
 
     public static Stage getMainStage() {
         return mainStage;
@@ -44,7 +47,6 @@ public class Main extends Application {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
         }
     }
-
 
     public void stop() {
         System.exit(0);
