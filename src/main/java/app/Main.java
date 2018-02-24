@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import javafx_controller.WelcomeBannerController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -32,12 +33,18 @@ public class Main extends Application {
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.resizableProperty().setValue(Boolean.FALSE);
             primaryStage.setScene(new Scene(root, 819, 325));
+            WelcomeBannerController loaderController = loader.getController();
+            primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, window -> {
+                Thread windowShownListener = new Thread(loaderController::initMainScene);
+                windowShownListener.start();
+            });
             primaryStage.centerOnScreen();
             primaryStage.show();
         } catch (IOException ioEcx) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
         }
     }
+
 
     public void stop() {
         System.exit(0);
