@@ -1,4 +1,4 @@
-package javafx_controller;
+package javafx.controller;
 
 import app.Main;
 import javafx.application.Platform;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 @Controller
 public class WelcomeBannerController implements Initializable {
-    private static final int PROGRESS_BAR_SECONDS = 2;
+    private static final int PROGRESS_BAR_SECONDS = 1;
     @FXML
     private ProgressBar progressBarAppLoading;
 
@@ -43,6 +43,7 @@ public class WelcomeBannerController implements Initializable {
             Thread.sleep(500);
             progressBarAppLoading.progressProperty().set(progress + progressBarAppLoading.progressProperty().get());
         }
+        Thread.sleep(100);
     }
 
     private void loadMainScene() {
@@ -51,7 +52,7 @@ public class WelcomeBannerController implements Initializable {
             public void run() {
                 FXMLLoader loader = new FXMLLoader();
                 try {
-                    loader.setLocation(getClass().getResource("../fxml/main.fxml"));
+                    loader.setLocation(getClass().getResource("../../fxml/main.fxml"));
                     loader.load();
                     Parent parent = loader.getRoot();
 
@@ -60,6 +61,7 @@ public class WelcomeBannerController implements Initializable {
                     primaryStage.initStyle(StageStyle.DECORATED);
                     primaryStage.resizableProperty().setValue(Boolean.TRUE);
                     primaryStage.setOnHidden(event -> Platform.exit());
+                    primaryStage.setTitle("Test Mark");
                     primaryStage.getIcons().add(new Image("/image/icon.png"));
                     primaryStage.setMinWidth(970);
                     primaryStage.setMinHeight(820);

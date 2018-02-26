@@ -18,14 +18,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx_controller.MainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.MainController">
    <MenuBar>
       <Menu mnemonicParsing="false" text="Edycja">
          <MenuItem mnemonicParsing="false" onAction="#menuItemModifyRatingSystem_onAction" text="Modyfikacja systemu oceniania" />
-         <MenuItem mnemonicParsing="false" onAction="#menuItemModifyHeader_onAction" text="Modyfikacja tekstu nagłówka" />
+         <MenuItem mnemonicParsing="false" onAction="#menuItemModifyHeader_onAction" text="Modyfikacja treści nagłówka" />
       </Menu>
    </MenuBar>
-   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: grey; -fx-border-width: 1; -fx-border-color: #000;" styleClass="mainSceneThemeContainer" stylesheets="@../css/application_style.css">
+   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: grey; -fx-border-width: 1; -fx-border-color: #000;" styleClass="appThemeContainer" stylesheets="@../css/application_style.css">
       <VBox.margin>
          <Insets left="10.0" right="10.0" top="10.0" />
       </VBox.margin>
@@ -81,17 +81,36 @@
                      <Font size="16.0" />
                   </font>
                </Label>
-               <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonReadTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wczytaj" textFill="WHITE">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
+               <HBox alignment="CENTER">
                   <VBox.margin>
-                     <Insets top="5.0" />
+                     <Insets top="5.0"/>
                   </VBox.margin>
-               </Button>
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
+                          onAction="#buttonReadTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0"
+                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                          text="Wczytaj" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                  </Button>
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
+                          onAction="#buttonClearTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0"
+                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                          text="Wyczyść" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="20.0"/>
+                     </HBox.margin>
+                  </Button>
+               </HBox>
             </VBox>
             <Region minWidth="3.0">
                <HBox.margin>
@@ -110,17 +129,36 @@
                      <Font size="16.0" />
                   </font>
                </Label>
-               <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonReadAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wczytaj" textFill="WHITE">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
+               <HBox alignment="CENTER">
                   <VBox.margin>
-                     <Insets top="5.0" />
+                     <Insets top="5.0"/>
                   </VBox.margin>
-               </Button>
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
+                          onAction="#buttonReadAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0"
+                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                          text="Wczytaj" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                  </Button>
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
+                          onAction="#buttonClearAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0"
+                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                          text="Wyczyść" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                     <HBox.margin>
+                        <Insets left="20.0"/>
+                     </HBox.margin>
+                  </Button>
+               </HBox>
             </VBox>
          </HBox>
          <HBox style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );" VBox.vgrow="ALWAYS">
@@ -157,16 +195,33 @@
             </VBox.margin>
             <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #545469;" HBox.hgrow="SOMETIMES">
                <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonAddTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Dodaj" textFill="WHITE">
-                  <HBox.margin>
-                     <Insets top="13.0" />
-                  </HBox.margin>
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font>
                   <cursor>
                      <Cursor fx:constant="HAND" />
                   </cursor>
+                  <HBox.margin>
+                     <Insets top="13.0" />
+                  </HBox.margin>
                </Button>
+               <HBox fx:id="hBoxShowTestTemplates">
+                  <HBox.margin>
+                     <Insets top="13.0"/>
+                  </HBox.margin>
+                  <Region maxWidth="20.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0"/>
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
+                          onAction="#buttonShowTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0"
+                          style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                          text="Wyświetl" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                  </Button>
+               </HBox>
             </HBox>
             <Region maxHeight="1.0" minWidth="3.0" />
             <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #545469;" HBox.hgrow="SOMETIMES">
@@ -184,6 +239,23 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
+               <HBox fx:id="hBoxShowAnswerCardsCollections">
+                  <HBox.margin>
+                     <Insets top="13.0"/>
+                  </HBox.margin>
+                  <Region maxWidth="20.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0"/>
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
+                          onAction="#buttonShowAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0"
+                          style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                          text="Wyświetl" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                  </Button>
+               </HBox>
             </HBox>
          </HBox>
       </VBox>

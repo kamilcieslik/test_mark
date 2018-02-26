@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import javafx_controller.WelcomeBannerController;
+import javafx.controller.WelcomeBannerController;
 
 import java.io.IOException;
 import java.util.logging.Level;

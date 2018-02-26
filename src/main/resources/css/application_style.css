@@ -6,6 +6,6 @@
     -fx-accent: #197a09;
 }
 
-.mainSceneThemeContainer {
+.appThemeContainer {
     -fx-background-image: url("../image/main_scene_theme.png");
 }

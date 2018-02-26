@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="819.0" style="-fx-border-color: black; -fx-border-width: 2;" styleClass="welcomeBannerThemeContainer" stylesheets="@../css/application_style.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx_controller.WelcomeBannerController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="819.0" style="-fx-border-color: black; -fx-border-width: 2;" styleClass="welcomeBannerThemeContainer" stylesheets="@../css/application_style.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.WelcomeBannerController">
     <HBox alignment="TOP_RIGHT" prefHeight="65.0" prefWidth="815.0" VBox.vgrow="ALWAYS">
         <VBox.margin>
             <Insets />
