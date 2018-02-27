@@ -110,33 +110,8 @@ public class Question {
         this.answers = tmpAnswers;
     }
 
-  /*  public void addAnswer(Answer answer) throws UniqueViolationException {
-        if (answers == null)
-            answers = new HashMap<>();
-
-        if (answers.containsKey(answer.getSymbol())) {
-            Throwable exceptionCause;
-            exceptionCause = new Throwable("odpowiedź o symbolu '" + answer.getSymbol() + "' już istnieje");
-            throw new UniqueViolationException("Błąd symbolu odpowiedzi", exceptionCause);
-        }
-
-        answers.put(answer.getSymbol(), answer);
-        if (answer.getCorrect())
-            amountOfCorrectAnswers++;
-    }
-
-    public void deleteAnswer(Answer answer) {
-        if (answer.getCorrect())
-            amountOfCorrectAnswers--;
-        answers.remove(answer.getSymbol());
-    }*/
-
     @Override
     public String toString() {
-        return "Question{" +
-                "content='" + content + '\'' +
-                ", amountOfCorrectAnswers=" + amountOfCorrectAnswers +
-                ", answers=" + answers +
-                '}';
+        return String.valueOf(number) + ". " + content;
     }
 }

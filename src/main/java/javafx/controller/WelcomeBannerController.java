@@ -64,7 +64,7 @@ public class WelcomeBannerController implements Initializable {
                     primaryStage.setTitle("Test Mark");
                     primaryStage.getIcons().add(new Image("/image/icon.png"));
                     primaryStage.setMinWidth(970);
-                    primaryStage.setMinHeight(820);
+                    primaryStage.setMinHeight(900);
                     primaryStage.setScene(new Scene(parent, 1600, 900));
 
                     Stage stage = (Stage) progressBarAppLoading.getScene().getWindow();

@@ -9,3 +9,7 @@
 .appThemeContainer {
     -fx-background-image: url("../image/main_scene_theme.png");
 }
+
+.textArea *.text {
+    -fx-text-alignment: center;
+}

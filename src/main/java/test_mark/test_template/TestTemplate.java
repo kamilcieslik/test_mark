@@ -1,11 +1,10 @@
 package test_mark.test_template;
 
 import test_mark.exception.MinimumNumberOfObjectsViolationException;
+import test_mark.exception.UniqueViolationException;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -18,12 +17,12 @@ public class TestTemplate {
     private Date creationDate;
     @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
-    private List<Question> questions;
+    private Map<Integer, Question> questions;
 
     public TestTemplate() {
     }
 
-    public TestTemplate(String courseName, String examName, Date creationDate, List<Question> questions) throws MinimumNumberOfObjectsViolationException {
+    public TestTemplate(String courseName, String examName, Date creationDate, List<Question> questions) throws MinimumNumberOfObjectsViolationException, UniqueViolationException {
         if (questions.size() < 2) {
             Throwable exceptionCause;
             exceptionCause = new Throwable("szablon testu musi posiadać co najmniej dwa pytania");
@@ -33,9 +32,16 @@ public class TestTemplate {
         this.courseName = courseName;
         this.examName = examName;
         this.creationDate = creationDate;
-        this.questions = questions;
-        for (Question question : this.questions)
-            question.setNumber(this.questions.indexOf(question) + 1);
+
+        this.questions = new HashMap<>();
+        for (Question question : questions) {
+            if (this.questions.containsKey(question.getNumber())) {
+                Throwable exceptionCause;
+                exceptionCause = new Throwable("pytanie o numerze '" + question.getNumber() + "' już istnieje");
+                throw new UniqueViolationException("Błąd numeru pytania", exceptionCause);
+            }
+            this.questions.put(question.getNumber(), question);
+        }
     }
 
     public String getCourseName() {
@@ -62,20 +68,28 @@ public class TestTemplate {
         this.creationDate = creationDate;
     }
 
-    public List<Question> getQuestions() {
+    public Map<Integer, Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) throws MinimumNumberOfObjectsViolationException {
+    public void setQuestions(List<Question> questions) throws MinimumNumberOfObjectsViolationException, UniqueViolationException {
         if (questions.size() < 2) {
             Throwable exceptionCause;
             exceptionCause = new Throwable("szablon testu musi posiadać co najmniej dwa pytania");
             throw new MinimumNumberOfObjectsViolationException("Błąd ilości pytań", exceptionCause);
         }
 
-        this.questions = questions;
-        for (Question question : this.questions)
-            question.setNumber(this.questions.indexOf(question) + 1);
+        Map<Integer, Question> tmpQuestions = new HashMap<>();
+        for (Question question : questions) {
+            if (tmpQuestions.containsKey(question.getNumber())) {
+                Throwable exceptionCause;
+                exceptionCause = new Throwable("pytanie o numerze '" + question.getNumber() + "' już istnieje");
+                throw new UniqueViolationException("Błąd numeru pytania", exceptionCause);
+            }
+            tmpQuestions.put(question.getNumber(), question);
+        }
+
+        this.questions = tmpQuestions;
     }
 
     @Override

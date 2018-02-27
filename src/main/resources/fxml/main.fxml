@@ -83,31 +83,25 @@
                </Label>
                <HBox alignment="CENTER">
                   <VBox.margin>
-                     <Insets top="5.0"/>
+                     <Insets top="5.0" />
                   </VBox.margin>
-                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
-                          onAction="#buttonReadTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0"
-                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
-                          text="Wczytaj" textFill="WHITE">
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonReadTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wczytaj" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
-                          onAction="#buttonClearTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0"
-                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
-                          text="Wyczyść" textFill="WHITE">
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonClearTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wyczyść" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                      </cursor>
                      <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </Button>
                </HBox>
@@ -131,31 +125,25 @@
                </Label>
                <HBox alignment="CENTER">
                   <VBox.margin>
-                     <Insets top="5.0"/>
+                     <Insets top="5.0" />
                   </VBox.margin>
-                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
-                          onAction="#buttonReadAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0"
-                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
-                          text="Wczytaj" textFill="WHITE">
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonReadAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wczytaj" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
-                          onAction="#buttonClearAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0"
-                          style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
-                          text="Wyczyść" textFill="WHITE">
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonClearAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #ff7e00; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wyczyść" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                      </cursor>
                      <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </Button>
                </HBox>
@@ -207,18 +195,15 @@
                </Button>
                <HBox fx:id="hBoxShowTestTemplates">
                   <HBox.margin>
-                     <Insets top="13.0"/>
+                     <Insets top="13.0" />
                   </HBox.margin>
-                  <Region maxWidth="20.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0"/>
-                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
-                          onAction="#buttonShowTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0"
-                          style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
-                          text="Wyświetl" textFill="WHITE">
+                  <Region maxWidth="20.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonShowTestTemplates_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wyświetl" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
                </HBox>
@@ -241,18 +226,15 @@
                </Button>
                <HBox fx:id="hBoxShowAnswerCardsCollections">
                   <HBox.margin>
-                     <Insets top="13.0"/>
+                     <Insets top="13.0" />
                   </HBox.margin>
-                  <Region maxWidth="20.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0"/>
-                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false"
-                          onAction="#buttonShowAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0"
-                          style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
-                          text="Wyświetl" textFill="WHITE">
+                  <Region maxWidth="20.0" minWidth="20.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Button minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#buttonShowAnswerCardsCollections_onAction" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #197a09; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" text="Wyświetl" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0"/>
+                        <Font name="System Bold" size="12.0" />
                      </font>
                      <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
                </HBox>
@@ -348,7 +330,7 @@
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Region prefHeight="200.0" prefWidth="200.0" />
+                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      <Label prefHeight="25.0" prefWidth="2000.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);" text="Ilość pytań:" textFill="WHITE">
                         <font>
                            <Font size="16.0" />
@@ -359,7 +341,7 @@
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Region prefHeight="200.0" prefWidth="200.0" />
+                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      <Label prefHeight="25.0" prefWidth="2000.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);" text="Data utworzenia:" textFill="WHITE">
                         <font>
                            <Font size="16.0" />
@@ -402,7 +384,7 @@
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Region prefHeight="200.0" prefWidth="200.0" />
+                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      <Label prefHeight="25.0" prefWidth="2000.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);" text="Ilość pytań:" textFill="WHITE">
                         <font>
                            <Font size="16.0" />
@@ -413,7 +395,18 @@
                            <Font size="16.0" />
                         </font>
                      </Label>
-                     <Region prefHeight="200.0" prefWidth="200.0" />
+                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     <Label prefHeight="25.0" prefWidth="2000.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);" text="Ilość kart odpowiedzi:" textFill="WHITE">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="labelSelectedAnswersCardsCollectionNumberOfAnswersCards" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="2000.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);" text="2" textFill="WHITE">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                      <Label prefHeight="25.0" prefWidth="2000.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);" text="Data przeprowadzenia:" textFill="WHITE">
                         <font>
                            <Font size="16.0" />
@@ -497,7 +490,7 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
-                     <TextArea fx:id="textAreaDevelopResultsDialog" editable="false" minHeight="60.0" prefHeight="100.0" prefWidth="349.0" wrapText="true" VBox.vgrow="ALWAYS">
+                     <TextArea fx:id="textAreaDevelopResultsDialog" editable="false" minHeight="60.0" prefHeight="100.0" prefWidth="349.0" styleClass="textArea" stylesheets="@../css/application_style.css" wrapText="true" VBox.vgrow="ALWAYS">
                         <cursor>
                            <Cursor fx:constant="DEFAULT" />
                         </cursor>

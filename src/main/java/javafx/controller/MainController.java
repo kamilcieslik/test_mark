@@ -19,16 +19,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.springframework.stereotype.Controller;
+import test_mark.exception.RatingSystemViolationException;
+import test_mark.test_result.Statistics;
 import test_mark.answers_cards_collection.AnswersCardsCollection;
+import test_mark.exception.MatchViolationException;
 import test_mark.exception.UniqueViolationException;
-import test_mark.parsers.AnswersCardCollectionXlsParser;
-import test_mark.parsers.TestTemplateXmlParser;
+import test_mark.parser.TestXlsParser;
+import test_mark.parser.TestTemplateXmlParser;
 import test_mark.test_template.TestTemplate;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -43,12 +47,14 @@ public class MainController implements Initializable {
     private CustomMessageBox customMessageBox;
     private ObservableList<TestTemplate> testTemplatesObservableList = FXCollections.observableArrayList();
     private ObservableList<AnswersCardsCollection> answersCardsCollectionsObservableList = FXCollections.observableArrayList();
+    private Statistics statistics;
 
     @FXML
     private Label labelHeader, labelSelectedTestTemplateCourseName, labelSelectedTestTemplateExamName,
             labelSelectedTestTemplateQuestionsNumber, labelSelectedTestTemplateDate,
             labelSelectedAnswersCardsCollectionCourseName, labelSelectedAnswersCardsCollectionExamName,
-            labelSelectedAnswersCardsCollectionQuestionsNumber, labelSelectedAnswersCardsCollectionDate;
+            labelSelectedAnswersCardsCollectionQuestionsNumber, labelSelectedAnswersCardsCollectionDate,
+            labelSelectedAnswersCardsCollectionNumberOfAnswersCards;
     @FXML
     private TableView<TestTemplate> tableViewTestTemplates;
     @FXML
@@ -70,7 +76,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pref = Preferences.userRoot();
-        labelHeader.setText(pref.get("header",
+        labelHeader.setText(pref.get("test_mark_header",
                 "Program do opracowywania wyników testów wyboru"));
         customMessageBox = new CustomMessageBox("image/icon.png");
         initTableViews();
@@ -83,12 +89,54 @@ public class MainController implements Initializable {
 
     @FXML
     void buttonAddAnswerCardsCollections_onAction() {
-        //TODO:
+        if (tableViewTestTemplates.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            try {
+                loader.setLocation(getClass().getResource("../../fxml/add_answers_cards_collection.fxml"));
+                loader.load();
+                AddAnswersCardsCollection loaderController = loader.getController();
+                loaderController.setInitialAnswersCardsCollectionValues(tableViewTestTemplates.getSelectionModel().getSelectedItem());
+                Parent parent = loader.getRoot();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Test Mark - tworzenie zbioru kart odpowiedzi");
+                stage.getIcons().add(new Image("/image/icon.png"));
+                Stage currentStage = (Stage) labelHeader.getScene().getWindow();
+                stage.setMinWidth(970);
+                stage.setMinHeight(900);
+                stage.setScene(new Scene(parent, currentStage.getWidth() - 16.0, currentStage.getHeight() - 42.5));
+                stage.showAndWait();
+            } catch (IOException ioEcx) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
+            }
+        } else
+            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
+                    "Operacja utworzenia zbioru kart odpowiedzi nie może się odbyć.",
+                    "Powód: przed przystąpieniem do utworzenia należy wybrać szablon testu.")
+                    .showAndWait();
     }
 
     @FXML
     void buttonShowAnswerCardsCollections_onAction() {
-        //TODO:
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            loader.setLocation(getClass().getResource("../../fxml/show_answers_cards_collection.fxml"));
+            loader.load();
+            ShowAnswersCardsCollectionController loaderController = loader.getController();
+            loaderController.setInitialAnswersCardsCollectionValues(tableViewAnswerCardsCollections.getSelectionModel().getSelectedItem());
+            Parent parent = loader.getRoot();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.resizableProperty().setValue(Boolean.FALSE);
+            stage.setTitle("Test Mark - widok zbioru kart odpowiedzi");
+            stage.getIcons().add(new Image("/image/icon.png"));
+            stage.setMinWidth(970);
+            stage.setMinHeight(900);
+            stage.setScene(new Scene(parent, 970, 900));
+            stage.showAndWait();
+        } catch (IOException ioEcx) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
+        }
     }
 
     @FXML
@@ -103,6 +151,8 @@ public class MainController implements Initializable {
             stage.setTitle("Test Mark - tworzenie nowego szablonu odpowiedzi");
             stage.getIcons().add(new Image("/image/icon.png"));
             Stage currentStage = (Stage) labelHeader.getScene().getWindow();
+            stage.setMinWidth(970);
+            stage.setMinHeight(820);
             stage.setScene(new Scene(parent, currentStage.getWidth() - 16.0, currentStage.getHeight() - 42.5));
             stage.showAndWait();
         } catch (IOException ioEcx) {
@@ -124,6 +174,8 @@ public class MainController implements Initializable {
             stage.setTitle("Test Mark - tworzenie nowego szablonu odpowiedzi");
             stage.getIcons().add(new Image("/image/icon.png"));
             Stage currentStage = (Stage) labelHeader.getScene().getWindow();
+            stage.setMinWidth(970);
+            stage.setMinHeight(820);
             stage.setScene(new Scene(parent, currentStage.getWidth() - 16.0, currentStage.getHeight() - 42.5));
             stage.showAndWait();
         } catch (IOException ioEcx) {
@@ -132,14 +184,68 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void buttonCheckResults_onAction() {
-        //TODO:
+    void buttonDevelopResults_onAction() {
+        TestTemplate selectedTestTemplate = tableViewTestTemplates.getSelectionModel().getSelectedItem();
+        AnswersCardsCollection selectedAnswersCardsCollection = tableViewAnswerCardsCollections.getSelectionModel()
+                .getSelectedItem();
+        if (selectedTestTemplate == null || selectedAnswersCardsCollection == null)
+            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
+                    "Operacja opracowania wyników nie powiedzie się.",
+                    "Powód: przed przystąpieniem do opracowania wyników należy wybrać test oraz odpowiadający" +
+                            " mu zbiór kart odpowiedzi.")
+                    .showAndWait();
+        else {
+            try {
+                double marksPercentages[] = {pref.getDouble("test_mark_mark_percentage_3_0", 55.00),
+                        pref.getDouble("test_mark_mark_percentage_3_5", 63.00),
+                        pref.getDouble("test_mark_mark_percentage_4_0", 72.00),
+                        pref.getDouble("test_mark_mark_percentage_4_5", 81.00),
+                        pref.getDouble("test_mark_mark_percentage_5_0", 90.00),
+                        pref.getDouble("test_mark_mark_percentage_5_5", 99.00)
+                };
+                statistics = new Statistics(selectedTestTemplate, selectedAnswersCardsCollection, marksPercentages);
+                setVBoxCheckResultsVisible(true);
+                DecimalFormat decimalFormat = new DecimalFormat("##.##");
+                textAreaDevelopResultsDialog.setText("POMYŚLNIE OPRACOWANO WYNIKI DLA TESTU WYBORU:\n- " +
+                        statistics.getAnswersCardsCollection().getExamName() + " z dnia " +
+                        new SimpleDateFormat("dd-MM-yyyy").format(statistics.getAnswersCardsCollection()
+                                .getExamDate()) + ".\n\nStatystyki ogólne:\n- średnia wartość oceny: " +
+                        decimalFormat.format(statistics.getAverageOfTestMark()) + ",\n- liczba niezaliczonych prac: " +
+                        statistics.getNumberOfFailedExams() + ",\n- średnia liczba punktów: " +
+                        decimalFormat.format(statistics.getAverageNumberOfPointsScoredByOneStudent()) +
+                        ",\n- średnia liczba nieudzielonych odpowiedzi: " +
+                        decimalFormat.format(statistics.getAverageNumberOfUnansweredQuestions()) +
+                        ".\n\nKliknij po więcej informacji...");
+            } catch (MatchViolationException | RatingSystemViolationException e) {
+                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
+                        "Operacja opracowania wyników nie powiodła się.",
+                        "Powód: " + e.getCause().getMessage() + ".")
+                        .showAndWait();
+            }
+        }
     }
 
     @FXML
-    void buttonDevelopResults_onAction() {
-        setVBoxCheckResultsVisible(true);
-        //TODO:
+    void buttonCheckResults_onAction() {
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            loader.setLocation(getClass().getResource("../../fxml/statistics.fxml"));
+            loader.load();
+            StatisticsController loaderController = loader.getController();
+            loaderController.setInitialStatisticsValues(statistics);
+            Parent parent = loader.getRoot();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Test Mark - statystyki testu wyboru");
+            stage.getIcons().add(new Image("/image/icon.png"));
+            Stage currentStage = (Stage) labelHeader.getScene().getWindow();
+            stage.setMinWidth(970);
+            stage.setMinHeight(820);
+            stage.setScene(new Scene(parent, currentStage.getWidth() - 16.0, currentStage.getHeight() - 42.5));
+            stage.showAndWait();
+        } catch (IOException ioEcx) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
+        }
     }
 
     @FXML
@@ -151,11 +257,11 @@ public class MainController implements Initializable {
         List<File> answersCardsCollectionsXlsFiles = answerCardsCollectionsXlsFileChooser.
                 showOpenMultipleDialog(Main.getMainStage());
         if (answersCardsCollectionsXlsFiles != null) {
-            AnswersCardCollectionXlsParser answersCardCollectionXlsParser = new AnswersCardCollectionXlsParser();
+            TestXlsParser testXlsParser = new TestXlsParser();
             try {
                 for (File file : answersCardsCollectionsXlsFiles)
-                    answersCardsCollectionsObservableList.add(answersCardCollectionXlsParser.readAnswersCardsCollection(file));
-                tableViewTestTemplates.setItems(testTemplatesObservableList);
+                    answersCardsCollectionsObservableList.add(testXlsParser.readAnswersCardsCollection(file));
+                tableViewAnswerCardsCollections.setItems(answersCardsCollectionsObservableList);
             } catch (IOException | UniqueViolationException e) {
                 customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
                         "Operacja odczytania zbiorów kart odpowiedzi nie powiodła się.",
@@ -221,7 +327,7 @@ public class MainController implements Initializable {
             stage.getIcons().add(new Image("/image/icon.png"));
             stage.setScene(new Scene(root, 819, 220));
             stage.showAndWait();
-            labelHeader.setText(pref.get("header",
+            labelHeader.setText(pref.get("test_mark_header",
                     "Program do opracowywania wyników testów wyboru"));
         } catch (IOException ioEcx) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
@@ -243,7 +349,7 @@ public class MainController implements Initializable {
             stage.getIcons().add(new Image("/image/icon.png"));
             stage.setScene(new Scene(root, 698, 687));
             stage.showAndWait();
-            labelHeader.setText(pref.get("header",
+            labelHeader.setText(pref.get("test_mark_header",
                     "Program do opracowywania wyników testów wyboru"));
         } catch (IOException ioEcx) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ioEcx);
@@ -252,8 +358,16 @@ public class MainController implements Initializable {
 
     @FXML
     void tableViewAnswerCardsCollections_onMouseClicked() {
-        //TODO:
-        //setHBoxVisible(hBoxShowAnswerCardsCollections, true);
+        AnswersCardsCollection selectedAnswersCardsCollection = tableViewAnswerCardsCollections.getSelectionModel().getSelectedItem();
+        if (selectedAnswersCardsCollection != null) {
+            labelSelectedAnswersCardsCollectionCourseName.setText(selectedAnswersCardsCollection.getCourseName());
+            labelSelectedAnswersCardsCollectionExamName.setText(selectedAnswersCardsCollection.getExamName());
+            labelSelectedAnswersCardsCollectionQuestionsNumber.setText(String.valueOf(selectedAnswersCardsCollection.getNumberOfQuestions()));
+            labelSelectedAnswersCardsCollectionNumberOfAnswersCards.setText(String.valueOf(selectedAnswersCardsCollection.getAnswersCards().size()));
+            labelSelectedAnswersCardsCollectionDate.setText(new SimpleDateFormat("dd-MM-yyyy")
+                    .format(selectedAnswersCardsCollection.getExamDate()));
+            setHBoxVisible(hBoxShowAnswerCardsCollections, true);
+        }
     }
 
     @FXML
@@ -287,7 +401,7 @@ public class MainController implements Initializable {
                 if (empty) {
                     setText(null);
                 } else {
-                    setText(new SimpleDateFormat("dd-MM-yyyy | HH:mm:ss").format(date));
+                    setText(new SimpleDateFormat("dd-MM-yyyy").format(date));
                 }
             }
         };
@@ -305,6 +419,7 @@ public class MainController implements Initializable {
         labelSelectedAnswersCardsCollectionExamName.setText("---");
         labelSelectedAnswersCardsCollectionQuestionsNumber.setText("---");
         labelSelectedAnswersCardsCollectionDate.setText("---");
+        labelSelectedAnswersCardsCollectionNumberOfAnswersCards.setText("---");
     }
 
     private void setHBoxVisible(HBox hBox, Boolean visible) {

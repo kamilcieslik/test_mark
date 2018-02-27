@@ -20,7 +20,7 @@ public class ModifyHeaderController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pref = Preferences.userRoot();
-        textFieldHeader.setText(pref.get("header",
+        textFieldHeader.setText(pref.get("test_mark_header",
                 "Program do opracowywania wyników testów wyboru"));
     }
 
@@ -32,7 +32,7 @@ public class ModifyHeaderController implements Initializable {
 
     @FXML
     void buttonModifyHeader_onAction() {
-        pref.put("header", textFieldHeader.getText());
+        pref.put("test_mark_header", textFieldHeader.getText());
         Stage stage = (Stage) textFieldHeader.getScene().getWindow();
         stage.close();
     }

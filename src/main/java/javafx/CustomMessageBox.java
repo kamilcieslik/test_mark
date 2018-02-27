@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class CustomMessageBox {
-    String iconImagePath;
+    private String iconImagePath;
 
     public CustomMessageBox(String iconImagePath) {
         this.iconImagePath = iconImagePath;

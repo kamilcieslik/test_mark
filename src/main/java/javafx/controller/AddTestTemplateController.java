@@ -2,7 +2,7 @@ package javafx.controller;
 
 import app.Main;
 import javafx.CustomMessageBox;
-import javafx.TextChangeListenerMethods;
+import javafx.ListenerMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,12 +15,13 @@ import org.springframework.stereotype.Controller;
 import test_mark.exception.CorrectAnswersViolationException;
 import test_mark.exception.MinimumNumberOfObjectsViolationException;
 import test_mark.exception.UniqueViolationException;
-import test_mark.parsers.TestTemplateXmlParser;
+import test_mark.parser.TestTemplateXmlParser;
 import test_mark.test_template.Answer;
 import test_mark.test_template.Question;
 import test_mark.test_template.TestTemplate;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,36 +56,36 @@ public class AddTestTemplateController implements Initializable {
     @FXML
     private CheckBox checkBoxAnswerCorrect;
 
-    public void setInitialTestTemplateValues(TestTemplate testTemplate){
-            questionsObservableList.addAll(testTemplate.getQuestions());
-            tableViewQuestions.setItems(questionsObservableList);
-            textFieldCourseName.setText(testTemplate.getCourseName());
-            textFieldExamName.setText(testTemplate.getExamName());
+    public void setInitialTestTemplateValues(TestTemplate testTemplate) {
+        questionsObservableList.addAll(new ArrayList<>(testTemplate.getQuestions().values()));
+        tableViewQuestions.setItems(questionsObservableList);
+        textFieldCourseName.setText(testTemplate.getCourseName());
+        textFieldExamName.setText(testTemplate.getExamName());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Preferences pref = Preferences.userRoot();
-        labelHeader.setText(pref.get("header",
+        labelHeader.setText(pref.get("test_mark_header",
                 "Program do opracowywania wyników testów wyboru"));
         customMessageBox = new CustomMessageBox("image/icon.png");
         initTableViews();
 
-        TextChangeListenerMethods textChangeListenerMethods = new TextChangeListenerMethods();
-        textFieldCourseName.textProperty().addListener((observable, oldValue, newValue) -> textChangeListenerMethods
-                .changeLabelText(withoutSpacesAtStartAndAndPattern, textFieldCourseName, labelCourseName,
+        ListenerMethods listenerMethods = new ListenerMethods();
+        textFieldCourseName.textProperty().addListener((observable, oldValue, newValue) -> listenerMethods
+                .changeLabelTextField(withoutSpacesAtStartAndAndPattern, textFieldCourseName, labelCourseName,
                         "Podaj nazwę kursu.", "Niepoprawny format."));
-        textFieldExamName.textProperty().addListener((observable, oldValue, newValue) -> textChangeListenerMethods
-                .changeLabelText(withoutSpacesAtStartAndAndPattern, textFieldExamName, labelExamName,
+        textFieldExamName.textProperty().addListener((observable, oldValue, newValue) -> listenerMethods
+                .changeLabelTextField(withoutSpacesAtStartAndAndPattern, textFieldExamName, labelExamName,
                         "Podaj nazwę testu wyboru.", "Niepoprawny format."));
-        textFieldQuestionText.textProperty().addListener((observable, oldValue, newValue) -> textChangeListenerMethods
-                .changeLabelText(withoutSpacesAtStartAndAndPattern, textFieldQuestionText, labelQuestionText,
+        textFieldQuestionText.textProperty().addListener((observable, oldValue, newValue) -> listenerMethods
+                .changeLabelTextField(withoutSpacesAtStartAndAndPattern, textFieldQuestionText, labelQuestionText,
                         "Podaj treść pytania.", "Niepoprawny format."));
-        textFieldAnswerSymbol.textProperty().addListener((observable, oldValue, newValue) -> textChangeListenerMethods
-                .changeLabelText("^[A-Z]{1}$", textFieldAnswerSymbol, labelAnswerSymbol,
+        textFieldAnswerSymbol.textProperty().addListener((observable, oldValue, newValue) -> listenerMethods
+                .changeLabelTextField("^[A-Z]{1}$", textFieldAnswerSymbol, labelAnswerSymbol,
                         "Podaj symbol.", "Niepoprawny forma."));
-        textFieldAnswerText.textProperty().addListener((observable, oldValue, newValue) -> textChangeListenerMethods
-                .changeLabelText(withoutSpacesAtStartAndAndPattern, textFieldAnswerText, labelAnswerText,
+        textFieldAnswerText.textProperty().addListener((observable, oldValue, newValue) -> listenerMethods
+                .changeLabelTextField(withoutSpacesAtStartAndAndPattern, textFieldAnswerText, labelAnswerText,
                         "Podaj treść.", "Niepoprawny forma."));
     }
 
@@ -127,27 +128,32 @@ public class AddTestTemplateController implements Initializable {
 
     @FXML
     private void buttonAddTestTemplates_onAction() {
-        if (!(labelCourseName.getText().equals("")&&labelExamName.getText().equals("")))
+        if (!(labelCourseName.getText().equals("") && labelExamName.getText().equals("")))
             customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
                     "Operacja utworzenia szablonu testu nie powiodła się.",
                     "Powód: co najmniej jedna wartość szablonu testu posiada niepoprawny format.")
                     .showAndWait();
         else {
-            try {
-                TestTemplate newTestTemplate = new TestTemplate(textFieldCourseName.getText(),
-                        textFieldExamName.getText(), new Date(), new ArrayList<>(questionsObservableList));
-                DirectoryChooser chooser = new DirectoryChooser();
-                chooser.setTitle("Test Mark - wybór katalogu zapisu szablonu testu");
-                String directoryPath = chooser.showDialog(Main.getMainStage()).getAbsolutePath();
-                TestTemplateXmlParser testTemplateXmlParser = new TestTemplateXmlParser();
-                testTemplateXmlParser.writeTestTemplate(newTestTemplate, directoryPath);
-                Stage stage = (Stage) textFieldQuestionText.getScene().getWindow();
-                stage.close();
-            } catch (MinimumNumberOfObjectsViolationException | JAXBException e) {
-                customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
-                        "Operacja utworzenia szablonu testu nie powiodła się.",
-                        "Powód: " + e.getCause().getMessage() + ".")
-                        .showAndWait();
+            for (int i = 0; i < questionsObservableList.size(); i++)
+                questionsObservableList.get(i).setNumber(i + 1);
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("Test Mark - wybór katalogu zapisu szablonu testu");
+            File directory = chooser.showDialog(Main.getMainStage());
+            if (directory != null) {
+                try {
+                    String directoryPath = directory.getAbsolutePath();
+                    TestTemplate newTestTemplate = new TestTemplate(textFieldCourseName.getText(),
+                            textFieldExamName.getText(), new Date(), new ArrayList<>(questionsObservableList));
+                    TestTemplateXmlParser testTemplateXmlParser = new TestTemplateXmlParser();
+                    testTemplateXmlParser.writeTestTemplate(newTestTemplate, directoryPath);
+                    Stage stage = (Stage) textFieldQuestionText.getScene().getWindow();
+                    stage.close();
+                } catch (MinimumNumberOfObjectsViolationException | JAXBException | UniqueViolationException e) {
+                    customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
+                            "Operacja utworzenia szablonu testu nie powiodła się.",
+                            "Powód: " + e.getCause().getMessage() + ".")
+                            .showAndWait();
+                }
             }
         }
     }

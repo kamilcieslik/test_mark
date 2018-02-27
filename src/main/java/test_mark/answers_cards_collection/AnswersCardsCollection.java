@@ -1,5 +1,6 @@
 package test_mark.answers_cards_collection;
 
+import test_mark.exception.MinimumNumberOfObjectsViolationException;
 import test_mark.exception.UniqueViolationException;
 
 import java.util.*;
@@ -14,10 +15,17 @@ public class AnswersCardsCollection {
     public AnswersCardsCollection() {
     }
 
-    public AnswersCardsCollection(String courseName, String examName, Date examDate, List<AnswersCard> answersCards) throws UniqueViolationException {
+    public AnswersCardsCollection(String courseName, String examName, Date examDate, Integer numberOfQuestions, List<AnswersCard> answersCards) throws UniqueViolationException, MinimumNumberOfObjectsViolationException {
+        if (answersCards.size() == 0) {
+            Throwable exceptionCause;
+            exceptionCause = new Throwable("zbiór kart odpowiedzi musi posiadać co najmniej jedną kartę odpowiedzi");
+            throw new MinimumNumberOfObjectsViolationException("Błąd ilości kart odpowiedzi", exceptionCause);
+        }
+
         this.courseName = courseName;
         this.examName = examName;
         this.examDate = examDate;
+        this.numberOfQuestions = numberOfQuestions;
         this.answersCards = new HashMap<>();
         for (AnswersCard answersCard : answersCards) {
             if (this.answersCards.containsKey(answersCard.getStudentIndex())) {
@@ -65,7 +73,13 @@ public class AnswersCardsCollection {
         return answersCards;
     }
 
-    public void setAnswersCards(List<AnswersCard> answersCards) throws UniqueViolationException {
+    public void setAnswersCards(List<AnswersCard> answersCards) throws UniqueViolationException, MinimumNumberOfObjectsViolationException {
+        if (answersCards.size() == 0) {
+            Throwable exceptionCause;
+            exceptionCause = new Throwable("zbiór kart odpowiedzi musi posiadać co najmniej jedną kartę odpowiedzi");
+            throw new MinimumNumberOfObjectsViolationException("Błąd ilości kart odpowiedzi", exceptionCause);
+        }
+
         Map<String, AnswersCard> tmpAnswersCards = new HashMap<>();
         for (AnswersCard answersCard : answersCards) {
             if (tmpAnswersCards.containsKey(answersCard.getStudentIndex())) {
@@ -76,7 +90,7 @@ public class AnswersCardsCollection {
             tmpAnswersCards.put(answersCard.getStudentIndex(), answersCard);
         }
 
-        this.answersCards=tmpAnswersCards;
+        this.answersCards = tmpAnswersCards;
     }
 
     public void addAnswersCard(AnswersCard answersCard) throws UniqueViolationException {
@@ -90,10 +104,6 @@ public class AnswersCardsCollection {
         }
 
         answersCards.put(answersCard.getStudentIndex(), answersCard);
-    }
-
-    public void deleteAnswersCard(AnswersCard answerCard) {
-        answersCards.remove(answerCard);
     }
 
     @Override

@@ -47,10 +47,9 @@ public class Answer {
 
     @Override
     public String toString() {
-        return "Answer{" +
-                "symbol=" + symbol +
-                ", content='" + content + '\'' +
-                ", correct=" + correct +
-                '}';
+        if (correct)
+            return symbol + ". " + content + " (poprawna)";
+        else
+            return symbol + ". " + content + " (niepoprawna)";
     }
 }

@@ -1,4 +1,4 @@
-package test_mark.parsers;
+package test_mark.parser;
 
 import test_mark.test_template.TestTemplate;
 

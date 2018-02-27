@@ -1,7 +1,7 @@
 package javafx.controller;
 
 import javafx.CustomMessageBox;
-import javafx.TextChangeListenerMethods;
+import javafx.ListenerMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -30,7 +30,7 @@ public class ModifyRatingSystemController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pref = Preferences.userRoot();
-        labelHeader.setText(pref.get("header",
+        labelHeader.setText(pref.get("test_mark_header",
                 "Program do opracowywania wyników testów wyboru"));
         customMessageBox = new CustomMessageBox("image/icon.png");
 
@@ -81,8 +81,8 @@ public class ModifyRatingSystemController implements Initializable {
         }
 
         assert textFieldMarkPercentage != null;
-        TextChangeListenerMethods textChangeListenerMethods = new TextChangeListenerMethods();
-        textChangeListenerMethods.changeLabelText("((?!^0*$)(?!^0*\\.0*$)^\\d{1,2}(\\.\\d{1,2})?$)|(^100$)",
+        ListenerMethods listenerMethods = new ListenerMethods();
+        listenerMethods.changeLabelTextField("((?!^0*$)(?!^0*\\.0*$)^\\d{1,2}(\\.\\d{1,2})?$)|(^100$)",
                 textFieldMarkPercentage, labelMark, "Podaj procent punktów.", "Niepoprawny format.");
     }
 
