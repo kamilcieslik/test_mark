@@ -92,7 +92,7 @@ public class MainController implements Initializable {
         if (tableViewTestTemplates.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
             try {
-                loader.setLocation(getClass().getResource("../../fxml/add_answers_cards_collection.fxml"));
+                loader.setLocation(getClass().getClassLoader().getResource("fxml/add_answers_cards_collection.fxml"));
                 loader.load();
                 AddAnswersCardsCollection loaderController = loader.getController();
                 loaderController.setInitialAnswersCardsCollectionValues(tableViewTestTemplates.getSelectionModel().getSelectedItem());
@@ -120,7 +120,7 @@ public class MainController implements Initializable {
     void buttonShowAnswerCardsCollections_onAction() {
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("../../fxml/show_answers_cards_collection.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/show_answers_cards_collection.fxml"));
             loader.load();
             ShowAnswersCardsCollectionController loaderController = loader.getController();
             loaderController.setInitialAnswersCardsCollectionValues(tableViewAnswerCardsCollections.getSelectionModel().getSelectedItem());
@@ -143,7 +143,7 @@ public class MainController implements Initializable {
     void buttonAddTestTemplates_onAction() {
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("../../fxml/add_test_template.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/add_test_template.fxml"));
             loader.load();
             Parent parent = loader.getRoot();
             Stage stage = new Stage();
@@ -164,7 +164,7 @@ public class MainController implements Initializable {
     void buttonShowTestTemplates_onAction() {
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("../../fxml/add_test_template.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/add_test_template.fxml"));
             loader.load();
             AddTestTemplateController loaderController = loader.getController();
             loaderController.setInitialTestTemplateValues(tableViewTestTemplates.getSelectionModel().getSelectedItem());
@@ -229,7 +229,7 @@ public class MainController implements Initializable {
     void buttonCheckResults_onAction() {
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("../../fxml/statistics.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("xml/statistics.fxml"));
             loader.load();
             StatisticsController loaderController = loader.getController();
             loaderController.setInitialStatisticsValues(statistics);
@@ -316,7 +316,7 @@ public class MainController implements Initializable {
     void menuItemModifyHeader_onAction() {
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("../../fxml/modify_header.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/modify_header.fxml"));
             loader.load();
             Parent root = loader.getRoot();
             Stage stage = new Stage();
@@ -338,7 +338,7 @@ public class MainController implements Initializable {
     void menuItemModifyRatingSystem_onAction() {
         FXMLLoader loader = new FXMLLoader();
         try {
-            loader.setLocation(getClass().getResource("../../fxml/modify_rating_system.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("fxml/modify_rating_system.fxml"));
             loader.load();
             Parent root = loader.getRoot();
             Stage stage = new Stage();
