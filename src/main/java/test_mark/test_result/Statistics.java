@@ -152,17 +152,17 @@ public class Statistics {
 
     private Double calculateTestMark(Double percentageOfCorrectAnswers) {
         Double testMark;
-        if (percentageOfCorrectAnswers > marksPercentages[5])
+        if (percentageOfCorrectAnswers >= marksPercentages[5])
             testMark = 5.5;
-        else if (percentageOfCorrectAnswers > marksPercentages[4])
+        else if (percentageOfCorrectAnswers >= marksPercentages[4])
             testMark = 5.0;
-        else if (percentageOfCorrectAnswers > marksPercentages[3])
+        else if (percentageOfCorrectAnswers >= marksPercentages[3])
             testMark = 4.5;
-        else if (percentageOfCorrectAnswers > marksPercentages[2])
+        else if (percentageOfCorrectAnswers >= marksPercentages[2])
             testMark = 4.0;
-        else if (percentageOfCorrectAnswers > marksPercentages[1])
+        else if (percentageOfCorrectAnswers >= marksPercentages[1])
             testMark = 3.5;
-        else if (percentageOfCorrectAnswers > marksPercentages[0])
+        else if (percentageOfCorrectAnswers >= marksPercentages[0])
             testMark = 3.0;
         else
             testMark = 2.0;
@@ -170,7 +170,7 @@ public class Statistics {
     }
 
     private void calculateDistributionOfStudentsByNumberOfPoints() {
-        for (int i = 1; i <= numberOfQuestions; i++)
+        for (int i = 0; i <= numberOfQuestions; i++)
             distributionOfTheNumberOfStudentsByNumberOfPoints.put(i, 0);
         for (StudentResults studentResults : studentsResults)
             distributionOfTheNumberOfStudentsByNumberOfPoints.put(studentResults.getNumberOfCorrectAnswers(),
